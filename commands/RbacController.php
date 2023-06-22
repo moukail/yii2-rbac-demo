@@ -44,6 +44,11 @@ class RbacController extends Controller
         $auth->add($updatePostPermission);
         $auth->addChild($managePostPermission, $updatePostPermission);
 
+        $deletePostPermission = $auth->createPermission('deletePostPermission');
+        $deletePostPermission->description = 'Update postPermission';
+        $auth->add($deletePostPermission);
+        $auth->addChild($managePostPermission, $deletePostPermission);
+
         $authorRule = new \app\rbac\AuthorRule;
         $auth->add($authorRule);
 

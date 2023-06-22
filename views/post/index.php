@@ -17,13 +17,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?php
-        if (Yii::$app->user->can('createPostPermission')){
-            echo Html::a('Create Post', ['create'], ['class' => 'btn btn-success']);
-        }
-        ?>
+        <?php if (Yii::$app->user->can('createPostPermission')): ?>
+        <?= Html::a('Create Post', ['create'], ['class' => 'btn btn-success']) ?>
+        <?php endif; ?>
     </p>
-
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
