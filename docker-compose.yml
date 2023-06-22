@@ -1,0 +1,47 @@
+version: '3.9'
+services:
+  database:
+    container_name: basic-database
+    image: mariadb:10.11
+    ports:
+      - 3306:3306
+    expose:
+      - 3306
+    volumes:
+      - database:/var/lib/mysql
+      - .docker/data:/docker-entrypoint-initdb.d
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=basic
+
+  php:
+    container_name: basic-backend
+    build:
+      context: .docker/php
+      dockerfile: Dockerfile
+    ports:
+      - 8000:8000
+    expose:
+      - 8000
+    volumes:
+      - ./:/var/www
+    environment:
+      - PHP_IDE_CONFIG=serverName=basic-backend
+      - MYSQL_HOST=basic-database
+      - MYSQL_PORT=3306
+      - MYSQL_DATABASE=basic
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root
+    depends_on:
+      - database
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+volumes:
+  database:
+    driver: local
+
+networks:
+  default:
+    name: logitrade
+    external: true
