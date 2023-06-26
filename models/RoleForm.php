@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use Yii;
 use yii\base\Model;
 use yii\helpers\ArrayHelper;
 use yii\rbac\Item;
@@ -82,14 +83,12 @@ class RoleForm extends Model
 
     public function getPermissions(): array
     {
-        $permissions = Role::find()->where(['type' => Item::TYPE_PERMISSION])->asArray()->all();
-        return ArrayHelper::map($permissions, 'name', 'name');
+        return ArrayHelper::map(Yii::$app->authManager->getPermissions(), 'name', 'name');
     }
 
     public static function getRoles(): array
     {
-        $roles = Role::find()->where(['type' => Item::TYPE_ROLE])->asArray()->all();
-        return ArrayHelper::map($roles, 'name', 'name');
+        return ArrayHelper::map(Yii::$app->authManager->getRoles(), 'name', 'name');
     }
 
     public static function getRolePermissions(string $roleName): array
