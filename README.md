@@ -231,3 +231,5 @@ vendor/bin/codecept run functional,unit --coverage --coverage-html --coverage-xm
 ```
 
 You can see code coverage output under the `tests/_output` directory.
+
+https://mdmsoft.github.io/yii2-admin/index.html
