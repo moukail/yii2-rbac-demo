@@ -4,7 +4,7 @@ services:
     container_name: basic-database
     image: mariadb:10.11
     ports:
-      - 3306:3306
+      - 3306
     expose:
       - 3306
     volumes:
@@ -19,8 +19,6 @@ services:
     build:
       context: .docker/php
       dockerfile: Dockerfile
-    ports:
-      - 8000:8000
     expose:
       - 8000
     volumes:
@@ -43,5 +41,5 @@ volumes:
 
 networks:
   default:
-    name: logitrade
+    name: moukail
     external: true
